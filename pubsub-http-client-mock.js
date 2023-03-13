@@ -39,11 +39,11 @@ class IpfsHttpClient {
   async publish(topic, message) {
     ioClient.emit(topic, message)
   }
-  subscribe(topic, callback) {
+  async subscribe(topic, callback) {
     ioClient.on(topic, callback)
     this.callbacks.push(callback)
   }
-  unsubscribe(topic) {
+  async unsubscribe(topic) {
     for (const callback of this.callbacks) {
       ioClient.off(topic, callback)
     }
