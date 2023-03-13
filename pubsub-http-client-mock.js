@@ -35,17 +35,19 @@ const ioClient = socket = io(`ws://localhost:${port}`)
 class IpfsHttpClient {
   constructor() {
     this.callbacks = []
-  }
-  async publish(topic, message) {
-    ioClient.emit(topic, message)
-  }
-  async subscribe(topic, callback) {
-    ioClient.on(topic, callback)
-    this.callbacks.push(callback)
-  }
-  async unsubscribe(topic) {
-    for (const callback of this.callbacks) {
-      ioClient.off(topic, callback)
+    this.pubsub = {
+      publish: async (topic, message) => {
+        ioClient.emit(topic, message)
+      },
+      subscribe: (topic, callback) => {
+        ioClient.on(topic, callback)
+        this.callbacks.push(callback)
+      },
+      unsubscribe: async (topic) => {
+        for (const callback of this.callbacks) {
+          ioClient.off(topic, callback)
+        }
+      }
     }
   }
 }
