@@ -21,7 +21,6 @@ try {
         peer.emit(topic, message)
       }
     })
-    console.log('connection')
   })
 }
 catch (e) {
