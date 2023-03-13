@@ -3,7 +3,9 @@ const IoServer = require('socket.io')
 const {io} = require('socket.io-client')
 const port = 25963
 
-// try creating the websocket client, will only work in node and if not already running, but that's ok
+// try creating the websocket server, will only work in node and if
+// not already running, but that's ok only 1 needs to runs
+// probably needs to be put in node only folder or webpack won't run
 let server
 let ioServer
 const peers = []
